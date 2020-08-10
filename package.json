@@ -1,0 +1,27 @@
+{
+  "name": "rest-shop",
+  "version": "1.0.0",
+  "description": "A Node.js RESTful API Tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codingovercoffee/node-rest-shop.git"
+  },
+  "keywords": [
+    "node",
+    "restful",
+    "api"
+  ],
+  "author": "Archisman Rakshit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codingovercoffee/node-rest-shop/issues"
+  },
+  "homepage": "https://github.com/codingovercoffee/node-rest-shop#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
