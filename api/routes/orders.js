@@ -3,8 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Order = require('../models/order');
 const Product = require('../models/products');
+const checkAuth = require('../middleware/check_auth');
 
-router.get('/', (req, res, next) =>{
+router.get('/', checkAuth,(req, res, next) =>{
     Order.find()
         .select("-__v")
         .populate('product','-__v')
@@ -29,7 +30,7 @@ router.get('/', (req, res, next) =>{
         .catch()
 });
 
-router.post('/', (req, res, next) =>{
+router.post('/',checkAuth, (req, res, next) =>{
     Product.findById(req.body.productId)
         .then(product => {
             if(!product) {
@@ -66,7 +67,7 @@ router.post('/', (req, res, next) =>{
         });
 });
 
-router.get('/:orderId', (req, res, next) =>{
+router.get('/:orderId',checkAuth, (req, res, next) =>{
     Order.find()
         .select('-__v') // the - before the __v states to ignore the __v field
         .populate('product', '-__v')
@@ -86,7 +87,7 @@ router.get('/:orderId', (req, res, next) =>{
         });
 });
 
-router.delete('/:orderId', (req, res, next) =>{
+router.delete('/:orderId',checkAuth, (req, res, next) =>{
     const id = req.params.productId;
     Order.remove({_id: id})
         .exec()
