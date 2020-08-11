@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 const ProductRoutes = require('./api/routes/products');
 const OrderRoutes = require('./api/routes/orders')
+const UserRoutes = require('./api/routes/user');
 
 mongoose.connect("mongodb+srv://node-rest-api:"
     +process.env.MONGO_ATLAS_PW+
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 //Routes handling requests
 app.use('/products', ProductRoutes);
 app.use('/orders', OrderRoutes);
+app.use('/user', UserRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
