@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 router.get('/', (req, res, next) => {
     Product.find()
-        .select('-__v')
+        .select('-__v') // the - before the __v states to ignore the __v field
         .exec()
         .then(docs =>{
             const response = {
@@ -36,8 +36,9 @@ router.post('/', (req, res, next) => {
         name: req.body.name,
         price: req.body.price
     });
-    product.save().
-    then(result =>{
+    product
+    .save()
+    .then(result =>{
         console.log(result);
         res.status(201).json({
             message: "Created product",
@@ -63,7 +64,7 @@ router.post('/', (req, res, next) => {
 router.get('/:productId', (req, res, next) =>{
    const id = req.params.productId;
    Product.findById(id)
-       .select('-__v')
+       .select('-__v') // the - before the __v states to ignore the __v field
        .exec()
        .then( doc => {
            console.log(doc);
