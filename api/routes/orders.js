@@ -7,6 +7,7 @@ const Product = require('../models/products');
 router.get('/', (req, res, next) =>{
     Order.find()
         .select("-__v")
+        .populate('product','-__v')
         .exec()
         .then(docs => {
             const response = {
@@ -68,23 +69,16 @@ router.post('/', (req, res, next) =>{
 router.get('/:orderId', (req, res, next) =>{
     Order.find()
         .select('-__v') // the - before the __v states to ignore the __v field
+        .populate('product', '-__v')
         .exec()
-        .then(docs =>{
-            const response = {
-                count: docs.length,
-                products: docs.map(doc =>{
-                    return {
-                        name: doc.name,
-                        price: doc.price,
-                        _id: doc._id,
-                        request: {
-                            type: 'GET',
-                            url: 'http://localhost:3000/orders/' + doc._id
-                        }
-                    }
-                })
-            };
-            res.status(200).json(response);
+        .then(order =>{
+            res.status(200).json({
+                order: order,
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:300/orders'
+                }
+            });
         })
         .catch(err => {
             console.log(err);
